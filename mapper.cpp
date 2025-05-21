@@ -34,3 +34,40 @@ std::vector<std::complex<double>> mapper::step(std::vector<int> binary){
     }
     return symbols;
 }
+// посчитать энергию бита
+double mapper::get_eb() {
+    int log2M = log2(M);
+    double bit_energy;
+    //std::vector<std::complex<double>> symbol_energy;
+    double symbol_energy = 0;
+    switch (M){
+        case 4:
+            //bit_energy = 1.0;
+            for (int i = 0; i < 4; ++i) {
+                //symbol_energy.push_back(pow(abs(constellation_4[i]), 2));
+                symbol_energy += pow(abs(constellation_4[i]), 2);
+            }
+            break;
+        case 16:
+            //bit_energy = 2.5;
+            for (int i = 0; i < 16; ++i) {
+                //symbol_energy.push_back(pow(abs(constellation_16[i]), 2));
+                symbol_energy += pow(abs(constellation_16[i]), 2);
+            }
+            break;
+        case 64:
+            //bit_energy = 7;
+            for (int i = 0; i < 64; ++i) {
+                //symbol_energy.push_back(pow(abs(constellation_64[i]), 2));
+                symbol_energy += pow(abs(constellation_64[i]), 2);
+            }
+            break;
+        default:
+            bit_energy = 1.0;
+            break;
+    }
+    symbol_energy = symbol_energy / double(M);
+    bit_energy = symbol_energy / double(log2M);
+
+    return bit_energy;
+}
